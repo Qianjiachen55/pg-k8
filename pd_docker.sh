@@ -1,1 +1,0 @@
-docker run --name pg -e POSTGRES_PASSWORD=123 -d postgres:12-alpine
