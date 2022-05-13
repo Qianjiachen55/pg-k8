@@ -43,7 +43,7 @@ jobs:
 
       - name: INstall golang-migrate
         run:
-          sudo mv tools/migrate /usr/bin/migrate
+          sudo cp tools/migrate /usr/bin/migrate
           which migrate
 
       - name: Run migrations
