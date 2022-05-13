@@ -42,7 +42,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: INstall golang-migrate
-        run:
+        run: |
           sudo cp tools/migrate /usr/bin
           which migrate
 
