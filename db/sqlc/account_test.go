@@ -12,6 +12,31 @@ import (
 	"testing"
 )
 
+
+func createRandomAccount(t *testing.T) Account{
+	user := createRandomUser(t)
+
+	arg := CreateAccountParams{
+		Owner: user.Username,
+		Balance: util.RandomMoney(),
+		Currency:  util.RandomCurrency(),
+	}
+	//log.Fatal(arg)
+	account,err := testQueries.CreateAccount(context.Background(),arg)
+	//log.Println(err)
+	require.NoError(t, err,"err is not null")
+	require.NotEmpty(t, account,"account empty")
+
+	require.Equal(t, arg.Owner, account.Owner)
+	require.Equal(t, arg.Balance, account.Balance)
+	require.Equal(t, arg.Currency, account.Currency)
+
+	require.NotZero(t, account.ID)
+	require.NotZero(t, account.CreatedAt)
+
+	return account
+}
+
 func TestCreateAccount (t *testing.T){
 	createRandomAccount(t)
 }
@@ -82,24 +107,3 @@ func TestListAccounts(t *testing.T){
 }
 
 
-func createRandomAccount(t *testing.T) Account{
-	arg := CreateAccountParams{
-		Owner: util.RandomOwner(),
-		Balance: util.RandomMoney(),
-		Currency:  util.RandomCurrency(),
-	}
-	//log.Fatal(arg)
-	account,err := testQueries.CreateAccount(context.Background(),arg)
-	//log.Println(err)
-	require.NoError(t, err,"err is not null")
-	require.NotEmpty(t, account,"account empty")
-
-	require.Equal(t, arg.Owner, account.Owner)
-	require.Equal(t, arg.Balance, account.Balance)
-	require.Equal(t, arg.Currency, account.Currency)
-
-	require.NotZero(t, account.ID)
-	require.NotZero(t, account.CreatedAt)
-
-	return account
-}
