@@ -50,6 +50,7 @@ func TestGetAccountAPI(t *testing.T) {
 					Return(db.Account{}, sql.ErrNoRows)
 			},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
+
 				require.Equal(t, http.StatusNotFound, recorder.Code)
 				//requireBodyMatchAccount(t, recorder.Body, account)
 			},
