@@ -16,12 +16,14 @@ func main() {
 	if err != nil{
 		log.Fatal("cannot load config:",err)
 	}
+	log.Println("config has been load")
 
 	conn, err := sql.Open(config.DBDriver, config.DBSource)
 	//defer conn.Close()
 	if err != nil {
 		log.Fatal("cannot connect to db: ", err)
 	}
+	log.Println("db conn init success!")
 
 	store := db.NewStore(conn)
 	server,err := api.NewServer(config, store)
